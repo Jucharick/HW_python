@@ -3,12 +3,13 @@
 # 6782 -> 23
 # 0,56 -> 11
 
+
 # математика
 
 from decimal import Decimal # библиотека позволяет работать с плавающими точками без 0.00000000000000006
-number = abs(Decimal(input('Введите дробное число: ')))
+number = abs(Decimal(input('Введите дробное число: '))) # abs - модуль
 quantity = 0
-while  number % 10 != 0:
+while  number % 10 != 0: # последний лишний ноль не отразится на сумме цифр
     number*=10
 while number > 0:
     quantity = quantity + int(number) % 10
