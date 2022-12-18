@@ -12,3 +12,18 @@ elif coordinate == 4:
     print('x > 0; y < 0')
 else:
     print('Вы ввели некоррекное значение')
+
+print()
+
+# вариант преподавателя
+match coordinate:
+    case 1:
+        print('x > 0; y > 0')
+    case 2:
+        print('x < 0; y > 0')
+    case 3:
+        print('x < 0; y < 0')
+    case 4:
+        print('x > 0; y < 0')
+    case _:
+        print('Вы ввели некоррекное значение')
