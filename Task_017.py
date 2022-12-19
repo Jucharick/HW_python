@@ -7,12 +7,21 @@ naumbers = list(range(-1*num, num+1))
 print(naumbers)
 
 
+data = open('file.txt', 'w') # открытие на запись
 
+for  line in range(2):
+    data.writelines(f"{int(input('Введите позию элемента: '))} \n")
+data.close()
 
-# # второй вариант
-# num = int(input('Введите целое число: '))
-# my_list = []
-# for i in range(-num, num+1):
-#     my_list.append(i)
-# print(*my_list, sep = ', ') # *  выводит содержимое my_list, без []; sep разделяет через ,  , но не добавляет после последнего элемента
-# # print(i, end = ', ') # end - что print добавляет в конце (\n по умолчанию), но добавляет после всех элементов
+data = open('file.txt', 'r') # открытие на чтение
+positions = []
+for line in data:
+    positions.append(int(line))
+data.close()
+
+mult = 1
+for i in range(len(positions)):
+    index = positions[i]
+    print(f'Число с индексом {index} = {naumbers[index]}')
+    mult = mult * naumbers[index]
+print(f'произведение элементов на указанных позициях => {mult}')
