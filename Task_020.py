@@ -2,12 +2,12 @@
 # Пример:
 # [2, 3, 4, 5, 6] => [12, 15, 16];
 # [2, 3, 5, 6] => [12, 15]
+
 import math
 from random import randint
 
 number = int(input('Введите число элементов в списке: '))
 my_list = []
-sum = 0
 for i in range(number):
     my_list.append(randint(0, 7))
 res = []
