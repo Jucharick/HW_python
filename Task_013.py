@@ -13,7 +13,7 @@ for i in range(num):
     # temp = my_list[i]
     # my_list[i] = my_list[new_i]
     # my_list[new_i] = temp
-    my_list[i], my_list[new_i] = my_list[new_i], my_list[i] # в пайтон можно делать замену таким образом, не используя temp
+    my_list[i], my_list[new_i] = my_list[new_i], my_list[i] # в пайтон можно делать замену таким образом, не используя temp как в C#
 print(my_list)
 
 
