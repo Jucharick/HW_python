@@ -12,5 +12,5 @@ list_2 = [1, 0]
 for i in range(2, num+1):
     list_2.insert(0, list_2[i-len(list_2)+1] - list_2[i-i])
 negafibonacci = list_2 + list_1
-negafibonacci.remove(0)
+negafibonacci.remove(0) # удаляю первый совпадение = 0
 print(negafibonacci)
