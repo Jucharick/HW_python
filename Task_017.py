@@ -3,8 +3,9 @@
 
 
 num = int(input('Введите целое число: '))
-naumbers = list(range(-1*num, num+1))
-print(naumbers)
+#numbers = list(range(-1*num, num+1))
+numbers = [i for i in range(-num, num+1)] # альтернативная запись создания списка
+print(numbers)
 
 
 data = open('file.txt', 'w') # открытие на запись
@@ -21,6 +22,6 @@ data.close()
 mult = 1
 for i in range(len(positions)):
     index = positions[i]
-    print(f'Число с индексом {index} = {naumbers[index]}')
-    mult = mult * naumbers[index]
+    print(f'Число с индексом {index} = {numbers[index]}')
+    mult = mult * numbers[index]
 print(f'произведение элементов на указанных позициях => {mult}')
