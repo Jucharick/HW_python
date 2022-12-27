@@ -28,7 +28,7 @@ def Sum_of_polynomials(dict_1: dict, dict_2: dict) -> dict:
                 sum_pol[k] = dict_1.get(k, v)
             else:
                 sum_pol[k] = dict_1.get(k, v) + dict_2.get(k, v)
-    if len(dict_1) < len(dict_2):
+    if len(dict_1) <= len(dict_2):
         for k, v in dict_2.items(): # item() возвращает объект представления, который отображает список пары кортежей (ключ, значение) данного словаря
             if k in dict_2 and k not in dict_1:
                 sum_pol[k] = dict_2.get(k, v)
