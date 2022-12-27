@@ -7,7 +7,7 @@ import random
 def Create_dict(k: int) -> dict:
     equation = {}
     for i in range(k, -1, -1): # до степени 0 => граница -1 не включается
-        equation[i] = random.randint(0, 5)
+        equation[i] = random.randint(0, 101)
     return equation
 
 
