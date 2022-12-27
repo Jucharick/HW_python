@@ -18,6 +18,8 @@ def Create_string(equation: dict) -> str:
             eq_str += f'{v}*x + '
         elif k == 0:
             eq_str += f'{v}'
+        elif v == 0:
+            eq_str += f''
         else:
             eq_str += f'{v}*x**{k} + '
     else:
