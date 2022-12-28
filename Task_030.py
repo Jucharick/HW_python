@@ -17,7 +17,7 @@ import random
 def Create_dict(k: int) -> dict:
     equation = {}
     for i in range(k, -1, -1): # до степени 0 => граница -1 не включается
-        equation[i] = random.randint(-2, 3)
+        equation[i] = random.randint(-100, 101)
     return equation
 
 # создается строка - многочлен
@@ -83,16 +83,12 @@ def Sum_of_polynomials(dict_1: dict, dict_2: dict) -> dict:
         for k, v in dict_1.items(): # item() возвращает объект представления, который отображает список пары кортежей (ключ, значение) данного словаря
             if k in dict_1 and k not in dict_2:
                 sum_pol[k] = dict_1.get(k, v)
-            # elif v < 0:
-            #     sum_pol[k] = dict_1.get(k, v) - dict_2.get(k, v)
             else:
                 sum_pol[k] = dict_1.get(k, v) + dict_2.get(k, v)
     if len(dict_1) <= len(dict_2):
         for k, v in dict_2.items(): # item() возвращает объект представления, который отображает список пары кортежей (ключ, значение) данного словаря
             if k in dict_2 and k not in dict_1:
                 sum_pol[k] = dict_2.get(k, v)
-            # elif v < 0:
-            #     sum_pol[k] = dict_1.get(k, v) - dict_2.get(k, v)
             else:
                 sum_pol[k] = dict_1.get(k, v) + dict_2.get(k, v)
     return sum_pol
