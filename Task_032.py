@@ -8,7 +8,7 @@
 
 from random import randint as RI
 
-# игрок против игрока
+
 
 all_candies = (int(input('Введите общее количество конфет: ')))
 
@@ -29,6 +29,8 @@ def take_candy(candies):
     return count
 
 
+# игрок против игрока
+
 # def candy_game(candies):
 #     lot = draw_lot()
 #     count = candies
@@ -47,8 +49,6 @@ def take_candy(candies):
 #                 print(f'Победил игрок - {player_2}. Ему достались все конфеты в колличестве {candies} шт.')
 #             print(f'На столе осталось {count} конфет')
 #             lot = player_1
-
-# candy_game(all_candies)
             
 
 # бот
@@ -59,6 +59,8 @@ def candy_game(candies):
     while count > 0:
         if lot == player_1:
             count_bot = RI(1,29)
+            while count_bot > count:
+                count_bot = RI(1,29)
             print(f'ход Глупого робота. Он взяд {count_bot} шт.')
             count = count - count_bot
             if count == 0:
@@ -73,7 +75,29 @@ def candy_game(candies):
             print(f'На столе осталось {count} конфет')
             lot = player_1
 
-candy_game(all_candies)
-
 
 # интеллект
+
+def candy_game(candies):
+    lot = draw_lot()
+    count = candies
+    while count > 0:
+        if lot == player_1:
+            count_bot = count - int(count/28)
+
+            print(f'ход "Умного" робота. Он взяд {count_bot} шт.')
+            count = count - count_bot
+            if count == 0:
+                print(f'Победил "Умный" робот. Ему достались все конфеты в колличестве {candies} шт.')
+            print(f'На столе осталось {count} конфет')
+            lot = player_2
+        else:
+            print(f'ход Человека')
+            count = count - take_candy(count)
+            if count == 0:
+                print(f'Победил Человек. Ему достались все конфеты в колличестве {candies} шт.')
+            print(f'На столе осталось {count} конфет')
+            lot = player_1
+
+
+candy_game(all_candies)
