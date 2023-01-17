@@ -29,31 +29,51 @@ def take_candy(candies):
     return count
 
 
+# def candy_game(candies):
+#     lot = draw_lot()
+#     count = candies
+#     while count > 0:
+#         if lot == player_1:
+#             print(f'ход игрока под № - {player_1}')
+#             count = count - take_candy(count)
+#             if count == 0:
+#                 print(f'Победил игрок - {player_1}. Ему достались все конфеты в колличестве {candies} шт.')
+#             print(f'На столе осталось {count} конфет')
+#             lot = player_2
+#         else:
+#             print(f'ход игрока под № - {player_2}')
+#             count = count - take_candy(count)
+#             if count == 0:
+#                 print(f'Победил игрок - {player_2}. Ему достались все конфеты в колличестве {candies} шт.')
+#             print(f'На столе осталось {count} конфет')
+#             lot = player_1
+
+# candy_game(all_candies)
+            
+
+# бот
+
 def candy_game(candies):
     lot = draw_lot()
     count = candies
     while count > 0:
         if lot == player_1:
-            print(f'ход игрока под № - {player_1}')
-            count = count - take_candy(count)
+            count_bot = RI(1,29)
+            print(f'ход Глупого робота. Он взяд {count_bot} шт.')
+            count = count - count_bot
             if count == 0:
-                print(f'Победил игрок - {player_1}. Ему достались все конфеты в количестве {candies} шт.')
+                print(f'Победил Глупый робот. Ему достались все конфеты в колличестве {candies} шт.')
             print(f'На столе осталось {count} конфет')
             lot = player_2
         else:
-            print(f'ход игрока под № - {player_2}')
+            print(f'ход Человека')
             count = count - take_candy(count)
             if count == 0:
-                print(f'Победил игрок - {player_2}. Ему достались все конфеты в количестве {candies} шт.')
+                print(f'Победил Человек. Ему достались все конфеты в колличестве {candies} шт.')
             print(f'На столе осталось {count} конфет')
             lot = player_1
 
 candy_game(all_candies)
-            
-
-
-
-# бот
 
 
 # интеллект
