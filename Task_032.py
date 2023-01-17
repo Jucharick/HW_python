@@ -6,8 +6,54 @@
 # a) Добавьте игру против бота (где бот берет рандомное количество конфет от 0 до 28)
 # b) Подумайте как наделить бота 'интеллектом' (алгоритм, позволяющий выяснить какое количесвто конфет необходимо брать, чтобы гарантированно победить)
 
-
+from random import randint as RI
 
 # игрок против игрока
 
 all_candies = (int(input('Введите общее количество конфет: ')))
+
+player_1 = 1
+player_2 = 2
+
+def draw_lot() -> int:
+    lot = RI(1,2)
+    print(f'Первый ход за игроком под № {lot}')
+    return lot 
+
+def take_candy(candies):
+    count = (int(input('Сколько вы возьмете конфет? За один ход можно забрать не более чем 28 конфет: ')))
+    while count > 28 or 0 >= count:
+        count = (int(input('Попробуйте еще раз (За один ход можно забрать не более чем 28 конфет): ')))
+    while (candies - count) < 0:
+        count = (int(input('Попробуйте еще раз (За один ход можно забрать не более чем 28 конфет): ')))
+    print(f'На столе осталось {candies - count} конфет')
+    return count
+
+lot = draw_lot()
+
+def candy_game(candies):
+    count = candies
+    while count > 0:
+        if lot == player_1:
+            count = count - take_candy(count)
+            if count == 0:
+                print(f'Победил игрок - {player_1}. Ему достались все конфеты в количестве {candies} штука')
+                break
+            lot == player_2
+        else:
+            count = count - take_candy(count)
+            if count == 0:
+                print(f'Победил игрок - {player_2}. Ему достались все конфеты в количестве {candies} штука')
+                break
+            lot == player_1
+    
+
+candy_game(all_candies)
+            
+
+
+
+# бот
+
+
+# интеллект
