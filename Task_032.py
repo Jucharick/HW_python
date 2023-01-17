@@ -23,30 +23,30 @@ def draw_lot() -> int:
 def take_candy(candies):
     count = (int(input('Сколько вы возьмете конфет? За один ход можно забрать не более чем 28 конфет: ')))
     while count > 28 or 0 >= count:
-        count = (int(input('Попробуйте еще раз (За один ход можно забрать не более чем 28 конфет): ')))
+        count = (int(input(f'Попробуйте еще раз (За один ход можно забрать конфет не более чем {candies if candies < 28 else 28} шт.): ')))
     while (candies - count) < 0:
-        count = (int(input('Попробуйте еще раз (За один ход можно забрать не более чем 28 конфет): ')))
-    print(f'На столе осталось {candies - count} конфет')
+        count = (int(input(f'Вы не можете взять больше конфет, чем {candies} шт. Попробуйте еще: ')))
     return count
 
-lot = draw_lot()
 
 def candy_game(candies):
+    lot = draw_lot()
     count = candies
     while count > 0:
         if lot == player_1:
+            print(f'ход игрока под № - {player_1}')
             count = count - take_candy(count)
             if count == 0:
-                print(f'Победил игрок - {player_1}. Ему достались все конфеты в количестве {candies} штука')
-                break
-            lot == player_2
+                print(f'Победил игрок - {player_1}. Ему достались все конфеты в количестве {candies} шт.')
+            print(f'На столе осталось {count} конфет')
+            lot = player_2
         else:
+            print(f'ход игрока под № - {player_2}')
             count = count - take_candy(count)
             if count == 0:
-                print(f'Победил игрок - {player_2}. Ему достались все конфеты в количестве {candies} штука')
-                break
-            lot == player_1
-    
+                print(f'Победил игрок - {player_2}. Ему достались все конфеты в количестве {candies} шт.')
+            print(f'На столе осталось {count} конфет')
+            lot = player_1
 
 candy_game(all_candies)
             
