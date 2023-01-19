@@ -80,13 +80,16 @@ def take_candy(candies):
 
 def candy_game(candies):
     lot = draw_lot()
+    max_sweet = 28
     count = candies
     while count > 0:
         if lot == player_1:
-            if count < 29:
+            if count <= max_sweet:
                 count_bot = count
+            elif count % max_sweet == 0: # count % max_sweet если четное, то должен взять столько, чтоб в полследнем ходе противника осталось 28+1 конфета 
+                count_bot = max_sweet - 1
             else:
-                count_bot = int(count/(28+1))
+                count_bot = count % max_sweet - 1
             print(f'ход "Умного" робота. Он взяд {count_bot} шт.')
         # exit()
             count = count - count_bot

@@ -22,19 +22,36 @@ def Read_file(name_file: str) -> str:
 
 def RLE(my_str) :
     res = ''
-    for j in range(len(my_str)-1):
-        count = 1
-        if my_str[j] == my_str[j+1]:
+    temp = my_str[0]
+    count = 0
+    for char in my_str:
+        if char == temp:
             count+=1
         else:
-            res = res + str(count) + str(my_str[j])
-
+            res = res + f'{count}{temp}'
+            temp = char
+            count = 1
+    else:
+        res = res + f'{count}{temp}'
     return res
-        
 
+def decod(my_str):
+    res = ''
+    count = 1
+    for char in my_str:
+        if char.isdigit():
+            count = int(char)
+        else:
+            res = res + count*char
+    return res
+
+        
 my_str = 'aaaaabbbcccc'
 
 Write_file(my_str,'String.txt')
 str_read = Read_file('String.txt')
+print(str_read)
 str_new = RLE(str_read)
 print(str_new)
+
+print(decod(str_new))
