@@ -4,6 +4,9 @@
 # [2, 3, 4, 5, 6] => [12, 15, 16];
 # [2, 3, 5, 6] => [12, 15]
 
+
+# Ускоренная обработка данных: lambda, filter, map, zip, enumerate, list comprehension.
+
 import math
 from random import randint
 

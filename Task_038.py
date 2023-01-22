@@ -2,6 +2,8 @@
 # Для N=5: 1,-3,9,-27,81 (каждый член больше предыдущего в три раза, знак чередуется)
 
 
+# Ускоренная обработка данных: lambda, filter, map, zip, enumerate, list comprehension.
+
 num = int(input('Введите число: '))
 my_list = [(-3)**i for i in range(num)] # любое число в степени 0 = 1
 print(my_list)
