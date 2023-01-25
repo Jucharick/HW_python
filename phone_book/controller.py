@@ -27,11 +27,11 @@ def start():
                     confirm = view.delete_confirm(contact[0][0])
                     if confirm:
                         model.del_contact(contact[0])   
+                        view.information(f'\nКонтакт {contact[0][0]} удален, не забудьте сохранить => 2\n')
                 elif contact == []:
                     view.empty_request()
                 else:
                     view.many_request()
-                view.information(f'\nКонтакт {contact[0][0]} удален, не забудьте сохранить => 2\n')
             case 6:
                 name = view.select_contact('Введите изменяемый контакт: ')
                 contact = model.get_contact(name) # кортеж - сам контакт и его индекс
@@ -48,5 +48,9 @@ def start():
                 result = model.search_contact(find)
                 view.show_contacts(result)
             case 8:
+                view.sort_name(model.get_phone_book())
+            case 9:
+                view.sort_id(model.get_phone_book())
+            case 10:
                 view.end_prog()
                 break

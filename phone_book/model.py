@@ -8,7 +8,7 @@
 # 8. Выход из программы
 
 phone_book = []
-path = 'C:/Users/Юлия Чарикова/Desktop/GeekBrains/I четверть - блок 2/Знакомство с языком Python/Seminars/phone_book/data.txt'
+path = 'C:/Users/Юлия Чарикова/Desktop/GeekBrains/I четверть - блок 2/Знакомство с языком Python/Home_work/phone_book/data.txt'
 
 def get_phone_book():
     global phone_book
@@ -35,7 +35,7 @@ def open_file():
     with open(path, 'r', encoding='utf-8') as data: # преобразую в utf-8, иначе ошибка (кириллица)
         file = data.readlines()
     for contact in file:
-        phone_book.append(contact.strip().split(';'))
+        phone_book.append(contact.strip().split(','))
     return file
 
 def add_new_contact(new_contact: list):
@@ -46,7 +46,8 @@ def change_contact(index: int, new: list):
     global phone_book
     phone_book[index][0] = new [0] if new[0] != '' else phone_book[index][0]
     phone_book[index][1] = new [1] if new[1] != '' else phone_book[index][1]
-    phone_book[index][2] = new [2] if new[1] != '' else phone_book[index][1]
+    phone_book[index][2] = new [2] if new[2] != '' else phone_book[index][2]
+    phone_book[index][3] = new [3] if new[3] != '' else phone_book[index][3]
 
 def del_contact(contact: list):
     global phone_book
@@ -67,6 +68,6 @@ def save_file():
     global phone_book
     pb_str = []
     for contact in phone_book:
-        pb_str.append(';'.join(contact))
+        pb_str.append(','.join(contact))
     with open(path, 'w', encoding='utf-8') as data: # преобразую в utf-8, иначе ошибка (кириллица)
         data.write('\n'.join(pb_str))

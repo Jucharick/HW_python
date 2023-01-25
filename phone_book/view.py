@@ -5,6 +5,8 @@ commands = ['Открыть файл',
             'Удалить контакт',
             'Изменить контакт',
             'Найти контак',
+            'Сортировка по имени',
+            'Сортировка по id',
             'Выход из программы']
 
 def menu():
@@ -14,10 +16,10 @@ def menu():
     while True:
         try: # try except пробует преобразовать input в int и если пользователь вводит букву или символ => ValueError: print('Введите корректное значение')
             request = int(input('Выберите пункт меню: '))
-            if 0 < request < 9:
+            if 0 < request < 11:
                 return request
             else:
-                print('Введите значение от 1 до 8')
+                print('Введите значение от 1 до 10')
         except ValueError:
             print('Введите корректное значение')
 
@@ -28,14 +30,15 @@ def show_contacts(phone_list: list):
     else:
         print()
         for i, contact in enumerate(phone_list, 1):
-            print(f'\t{i}. {contact[0]:30} {contact[1]:13} {contact[2]}')
+            print(f'\t{i}. {contact[0]:5} {contact[1]:25} {contact[2]:13} {contact[3]}')
     print()
         
 def create_contact():
+    id = input('Введите id: ')
     name = input('Введите ФИО: ')
     phone = input('Введите номер телефона: ')
     comment = input('Укажите комментарий: ')
-    return name, phone, comment
+    return id, name, phone, comment
 
 def select_contact(message: str):
     cont = input(message)
@@ -43,10 +46,11 @@ def select_contact(message: str):
 
 def change_contact():
     print('Введите новые данные (если изменения не требуются нажмите Enter): ')
+    id = input('Введите id: ')
     name = input('Введите ФИО: ')
     phone = input('Введите номер телефона: ')
     comment = input('Укажите комментарий: ')
-    return name, phone, comment
+    return id, name, phone, comment
 
 def delete_confirm(contact: str):
     result = input(f'Вы действительно хотите удалить {contact} (y/n)? ').lower()
@@ -76,3 +80,23 @@ def many_request():
 
 def information(message):
     print(message)
+
+def sort_name(phone_list: list):
+    if len(phone_list) < 1:
+        print('Телефонная книга пуста или не открыта')
+    else:
+        print()
+        sort_by_id = sorted(phone_list, key = lambda x: x[1])
+        for i, contact in enumerate(sort_by_id, 1):
+            print(f'\t{i}. {contact[0]:5} {contact[1]:25} {contact[2]:13} {contact[3]}')
+    print()
+
+def sort_id(phone_list: list):
+    if len(phone_list) < 1:
+        print('Телефонная книга пуста или не открыта')
+    else:
+        print()
+        sort_by_name = sorted(phone_list, key = lambda x: x[0])
+        for i, contact in enumerate(sort_by_name, 1):
+            print(f'\t{i}. {contact[0]:5} {contact[1]:25} {contact[2]:13} {contact[3]}')
+    print()
