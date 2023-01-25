@@ -82,21 +82,13 @@ def information(message):
     print(message)
 
 def sort_name(phone_list: list):
-    if len(phone_list) < 1:
-        print('Телефонная книга пуста или не открыта')
-    else:
-        print()
-        sort_by_id = sorted(phone_list, key = lambda x: x[1])
-        for i, contact in enumerate(sort_by_id, 1):
-            print(f'\t{i}. {contact[0]:5} {contact[1]:25} {contact[2]:13} {contact[3]}')
+    print()
+    sort_by_name = sorted(phone_list, key = lambda x: x[1])
+    show_contacts(sort_by_name)
     print()
 
 def sort_id(phone_list: list):
-    if len(phone_list) < 1:
-        print('Телефонная книга пуста или не открыта')
-    else:
-        print()
-        sort_by_name = sorted(phone_list, key = lambda x: x[0])
-        for i, contact in enumerate(sort_by_name, 1):
-            print(f'\t{i}. {contact[0]:5} {contact[1]:25} {contact[2]:13} {contact[3]}')
+    print()
+    sort_by_name = sorted(phone_list, key = lambda x: x[0])
+    show_contacts(sort_by_name)
     print()
