@@ -21,7 +21,14 @@ def menu():
         except ValueError:
             print('Введите корректное значение')
 
-
+def show_students(student_list: list):
+    if len(student_list) < 1:
+        print('Телефонная книга пуста или не открыта')
+    else:
+        print()
+        for i, student in enumerate(student_list, 1):
+            print(f'\t{i}. {student[0]:5} {student[1]:10} {student[2]:15}')
+    print()
 
 def get_student():
     input('Введите имя ')

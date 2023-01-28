@@ -7,7 +7,8 @@ def start():
         value = view.menu()
         match value:
             case 1:
-                value = view.menu()
+                model.open_file()
+                view.show_students(model.get_students_book())
             case 2:
                 pass
             case 3:
