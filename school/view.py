@@ -23,20 +23,54 @@ def menu():
 
 def show_students(student_list: list):
     if len(student_list) < 1:
-        print('Телефонная книга пуста или не открыта')
+        print('Список учеников пуст')
     else:
         print()
         for i, student in enumerate(student_list, 1):
             print(f'\t{i}. {student[0]:5} {student[1]:10} {student[2]:15}')
     print()
 
-def get_student():
-    input('Введите имя ')
-    input('Введите фамилию ')
+def create_student():
+    id = input('Введите id: ')
+    name = input('Введите имя: ')
+    surname = input('Введите фамилию: ')
+    return id, name, surname
 
-def get_journal():
-    input('Введите предмет ')
-    input('Введите оценку ')
+def select_student(message: str):
+    student = input(message)
+    return student
+
+def delete_confirm(student: str):
+    result = input(f'Вы действительно хотите удалить {student} (y/n)? ').lower()
+    if result == 'y':
+        return True
+    else:
+        return False
+
+def change_student():
+    print('Введите новые данные (если изменения не требуются нажмите Enter): ')
+    id = input('Введите id: ')
+    name = input('Введите имя: ')
+    surname = input('Введите фамилию: ')
+    return id, name, surname
+
+def empty_request():
+    print()
+    print('Искомый контакт не найден')
+    print()
+
+def many_request():
+    print()
+    print('Найденных контактов больше 1. Введите более точные данные')
+    print()
+
+# def get_student():
+#     input('Введите имя ')
+#     input('Введите фамилию ')
+
+# def get_journal():
+#     input('Введите предмет ')
+#     input('Введите оценку ')
 
 
 
@@ -47,3 +81,6 @@ def end_prog():
     print()
     print('Работа в программе завершена')
     print()
+
+def information(message):
+    print(message)
