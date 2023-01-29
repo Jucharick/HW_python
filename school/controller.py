@@ -21,21 +21,21 @@ def start():
                 view.show_students(model.get_students_book())
                 model.close_file()
             case 2:
-                model.open_file()
                 new_student = list(view.create_student())
                 model.add_new_student(new_student)
                 view.information(f'\nНовый ученик {new_student} добавлен.\n')
-                model.save_file()
-                model.close_file()
             case 3:
-                pass
+                model.add_les(view.add_lesson())
             case 4:
-                pass
+                name, less, mark =  view.get_mark()
+                result = model.search_contact(name)
+                find_stud = ' '.join(result[0])
+                model.add_mark(find_stud, less, mark)
+                model.save_journal()
             case 5:
                 model.open_file()
                 name = view.select_student('Введите ученика, которого необходимо изменить: ')
                 student = model.get_student(name) # кортеж - студент и его индекс
-                print(student)
                 if student:
                     upd_student = view.change_student()
                     model.change_student(student[1], list(upd_student)) # в кортеже под индексом 1 хранится индекс (кортеж - студент и его индекс)
@@ -48,7 +48,7 @@ def start():
                 model.close_file()
             case 6:
                 model.open_file()
-                del_name = view.select_student('Введите удаляемый контакт: ')
+                del_name = view.select_student('Введите удаляемого ученика: ')
                 student = model.get_student(del_name)
                 if student:
                     confirm = view.delete_confirm(student[0][0])

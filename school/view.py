@@ -7,6 +7,9 @@ commands = ['Показ списка учеников',
             'Показ листа оценок конкретного ученика',
             'Выход из программы']
 
+
+
+
 def menu():
     print('Главное меню:')
     for i, item in enumerate(commands, 1):
@@ -36,6 +39,16 @@ def create_student():
     surname = input('Введите фамилию: ')
     return id, name, surname
 
+def add_lesson():
+    les = input('Введите название предмета: ')
+    return les
+
+def get_mark():
+    name = input('Введите имя: ')
+    less = input('Введите предмет: ')
+    mark = input('Введите оценку: ')
+    return name, less, mark
+
 def select_student(message: str):
     student = input(message)
     return student
@@ -44,8 +57,11 @@ def delete_confirm(student: str):
     result = input(f'Вы действительно хотите удалить {student} (y/n)? ').lower()
     if result == 'y':
         return True
-    else:
+    elif result == 'n':
+        print('Операция отменена')
         return False
+    else:
+        print('Вы ввели некорректное значение')
 
 def change_student():
     print('Введите новые данные (если изменения не требуются нажмите Enter): ')
@@ -63,19 +79,6 @@ def many_request():
     print()
     print('Найденных контактов больше 1. Введите более точные данные')
     print()
-
-# def get_student():
-#     input('Введите имя ')
-#     input('Введите фамилию ')
-
-# def get_journal():
-#     input('Введите предмет ')
-#     input('Введите оценку ')
-
-
-
-
-
 
 def end_prog():
     print()
