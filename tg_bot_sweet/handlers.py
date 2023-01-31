@@ -1,7 +1,7 @@
 from aiogram import types
 from loader import dp
 
-total = 0
+total = 221 # по умолчанию, через команду /set можео изменить количество конфет в игре
 new_game = False
 
 @dp.message_handler(commands=['start', 'старт'])
