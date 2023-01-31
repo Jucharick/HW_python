@@ -65,15 +65,18 @@ async def mes_set(message: types.Message):
     global max_count
     global new_game
     name = message.from_user.first_name
-    count = message.text.split()[1]
-    if not new_game:
-        if count.isdigit():
-            max_count = int(count)
-            await message.answer(f'Теперь конфет в игре будет {max_count}')
+    if len(message.text.split()) > 1:  # добавила обработку на ошибку "Если после /set не ввели количество"
+        count = message.text.split()[1]
+        if not new_game:
+            if count.isdigit():
+                max_count = int(count)
+                await message.answer(f'Теперь конфет в игре будет {max_count}')
+            else:
+                await message.answer(f'{name}, напишите цифрами')
         else:
-            await message.answer(f'{name}, напишите цифрами')
+            await message.answer(f'{name}, нельзя менять правила во время игры')
     else:
-        await message.answer(f'{name}, нельзя менять правила во время игры')
+        await message.answer(f'После команды /set нужно через пробел поставить новое количество конфет. Количество конфет не изменено, пробуй еще раз')
 
 @dp.message_handler() # жадный handler, ловит все ходы 
 async def mes_take_candy(message: types.Message):
