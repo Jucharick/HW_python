@@ -130,9 +130,9 @@ def opponent_id():
     global duel
     global current
     if current == duel[0]: # меняем id - ход игроков
-        return duel[1] # не присваивает как switch_players(), а возвращает противоположное значение
+        return duel[1] # не присваивает как switch_players(), а возвращает противоположное значение (для отправки сообщения другому игроку)
     else:
-        return duel[0] # не присваивает как switch_players(), а возвращает противоположное значение      
+        return duel[0] # не присваивает как switch_players(), а возвращает противоположное значение (для отправки сообщения другому игроку)
 
 async def bot_turn(message: types.Message):
     global total
