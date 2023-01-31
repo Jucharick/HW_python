@@ -27,6 +27,20 @@ def get_lesson_book():
     global lesson_book
     return lesson_book
 
+def create_main_journal():
+    global main_journal
+    global students_book
+    global lesson_book
+    for name in students_book:
+        student = ' '.join(name)
+        main_journal[student] = {}
+        for lesson in lesson_book:
+            main_journal[student][lesson] = []
+
+def get_main_journal():
+    global main_journal
+    return main_journal
+
 def open_file():
     global path
     global students_book
@@ -56,10 +70,8 @@ def add_new_student(new_student: list):
     students_book.append(new_student)
     student = ' '.join(new_student)
     main_journal[student] = {}
-    print(main_journal)
     for les in lesson_book:
         main_journal[student][les] = []
-    print(main_journal)
 
 def open_file_les():
     global path_les
@@ -89,7 +101,6 @@ def add_les(les: str):
         main_journal[student] = {}
         for lesson in lesson_book:
             main_journal[student][lesson] = []
-    print(main_journal)
 
 def search_contact(find: str) -> list:
     global students_book
@@ -105,13 +116,7 @@ def add_mark(name: str, less: str, mark: str):
     global students_book
     global lesson_book
     global main_journal
-    for stud in students_book:
-            student = ' '.join(stud)
-            main_journal[student] = {}
-            for lesson in lesson_book:
-                main_journal[student][lesson] = []
     main_journal[name][less].append(mark)
-    print(main_journal)
 
 def save_journal():
     global main_journal
@@ -146,3 +151,20 @@ def change_student(index: int, new: list):
         else:
             students_book[index][i]
 
+def get_student_journal(find_cont: str):
+    global main_journal
+    result = []
+    for key, values in main_journal.items():
+        if find_cont in key:
+            result.append(main_journal.get(key, values))
+            break
+    if len(result) > 1: # если в список по поиску для удаления добавились больше 1 строки, то мы не можем удалить
+        return False
+    elif result == []:
+        return result
+    else:
+        return result
+
+def show_student_journal(student):
+    global main_journal
+    return main_journal[student]

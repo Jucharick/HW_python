@@ -5,6 +5,7 @@ commands = ['Показ списка учеников',
             'Редактировать данные ученика',
             'Удалить ученика',
             'Показ листа оценок конкретного ученика',
+            'Показать весь журнал',
             'Выход из программы']
 
 
@@ -17,10 +18,10 @@ def menu():
     while True:
         try: # try except пробует преобразовать input в int и если пользователь вводит букву или символ => ValueError: print('Введите корректное значение')
             request = int(input('Выберите пункт меню: '))
-            if 0 < request < 9:
+            if 0 < request < 10:
                 return request
             else:
-                print('Введите значение от 1 до 8')
+                print('Введите значение от 1 до 9')
         except ValueError:
             print('Введите корректное значение')
 
@@ -47,7 +48,7 @@ def get_mark():
     name = input('Введите имя: ')
     less = input('Введите предмет: ')
     mark = input('Введите оценку: ')
-    return name, less, mark
+    return name, less.lower(), mark
 
 def select_student(message: str):
     student = input(message)
@@ -69,6 +70,15 @@ def change_student():
     name = input('Введите имя: ')
     surname = input('Введите фамилию: ')
     return id, name, surname
+
+def show_journal(journal):
+    if len(journal) < 1:
+            print('Список учеников пуст')
+    else:
+        print()
+        for key, value in journal.items():
+            print(f'\t{key} {value}')
+    print()
 
 def empty_request():
     print()

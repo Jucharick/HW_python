@@ -15,6 +15,7 @@ def start():
     value =''
     model.open_file()
     model.open_file_les()
+    model.create_main_journal()
     while True:
         value = view.menu()
         match value:
@@ -60,8 +61,12 @@ def start():
                 else:
                     view.many_request()
             case 7:
-                pass
+                select_name = view.select_student('Введите ученика для демонстрации его оценок: ')
+                student = model.get_student_journal(select_name)
+                view.information(student)
             case 8:
+                view.show_journal(model.get_main_journal())
+            case 9:
                 view.end_prog()
                 model.save_file()
                 model.save_file_les()
