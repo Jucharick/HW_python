@@ -1,7 +1,7 @@
 # 1. Показ списка учеников
-# 2. Добаить нового студента (поля: имя, фамилия)
+# 2. Добавить нового студента (поля: имя, фамилия)
 # 3. Добавить предмет
-# 4. Добаить оценку ученику
+# 4. Добавить оценку ученику
 # 5. Редактировать данные ученика
 # 6. Удалить ученика
 # 7. Показ листа оценок конкретного ученика
@@ -22,6 +22,10 @@ path_les = 'school/lesson.txt'
 def get_students_book():
     global students_book
     return students_book
+
+def get_lesson_book():
+    global lesson_book
+    return lesson_book
 
 def open_file():
     global path
@@ -49,8 +53,6 @@ def add_new_student(new_student: list):
     global students_book
     global lesson_book
     global main_journal
-    open_file()
-    open_file_les()
     students_book.append(new_student)
     student = ' '.join(new_student)
     main_journal[student] = {}
@@ -58,9 +60,6 @@ def add_new_student(new_student: list):
     for les in lesson_book:
         main_journal[student][les] = []
     print(main_journal)
-    save_file()
-    close_file()
-    close_file_les()
 
 def open_file_les():
     global path_les
@@ -84,38 +83,28 @@ def add_les(les: str):
     global students_book
     global lesson_book
     global main_journal
-    open_file()
-    open_file_les()
-    if les not in lesson_book:
-        lesson_book.append(les)
-        for name in students_book:
-            student = ' '.join(name)
-            main_journal[student] = {}
-            for lesson in lesson_book:
-                main_journal[student][lesson] = []
+    lesson_book.append(les.lower())
+    for name in students_book:
+        student = ' '.join(name)
+        main_journal[student] = {}
+        for lesson in lesson_book:
+            main_journal[student][lesson] = []
     print(main_journal)
-    save_file_les()
-    close_file()
-    close_file_les()
 
 def search_contact(find: str) -> list:
     global students_book
-    open_file()
     result = []
     for student in students_book:
         for field in student:
             if find in field:
                 result.append(student)
                 break
-    close_file()
     return result
     
 def add_mark(name: str, less: str, mark: str):
     global students_book
     global lesson_book
     global main_journal
-    open_file()
-    open_file_les()
     for stud in students_book:
             student = ' '.join(stud)
             main_journal[student] = {}
@@ -123,8 +112,6 @@ def add_mark(name: str, less: str, mark: str):
                 main_journal[student][lesson] = []
     main_journal[name][less].append(mark)
     print(main_journal)
-    close_file()
-    close_file_les()
 
 def save_journal():
     global main_journal

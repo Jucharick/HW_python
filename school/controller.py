@@ -13,19 +13,23 @@ import model
 
 def start():
     value =''
+    model.open_file()
+    model.open_file_les()
     while True:
         value = view.menu()
         match value:
             case 1:
-                model.open_file()
                 view.show_students(model.get_students_book())
-                model.close_file()
             case 2:
                 new_student = list(view.create_student())
                 model.add_new_student(new_student)
                 view.information(f'\nНовый ученик {new_student} добавлен.\n')
             case 3:
-                model.add_les(view.add_lesson())
+                les = view.add_lesson()
+                if les.lower() not in model.get_lesson_book():
+                    model.add_les(les)
+                else:
+                    view.information(f'Такой предмет уже есть в списке предметов.')
             case 4:
                 name, less, mark =  view.get_mark()
                 result = model.search_contact(name)
@@ -33,7 +37,6 @@ def start():
                 model.add_mark(find_stud, less, mark)
                 model.save_journal()
             case 5:
-                model.open_file()
                 name = view.select_student('Введите ученика, которого необходимо изменить: ')
                 student = model.get_student(name) # кортеж - студент и его индекс
                 if student:
@@ -44,10 +47,7 @@ def start():
                 else:
                     view.many_request()
                 view.information(f'\nДанные об ученике {student[0][0]} обновлены\n')
-                model.save_file()
-                model.close_file()
             case 6:
-                model.open_file()
                 del_name = view.select_student('Введите удаляемого ученика: ')
                 student = model.get_student(del_name)
                 if student:
@@ -59,10 +59,12 @@ def start():
                     view.empty_request()
                 else:
                     view.many_request()
-                model.save_file()
-                model.close_file()
             case 7:
                 pass
             case 8:
                 view.end_prog()
+                model.save_file()
+                model.save_file_les()
+                model.close_file()
+                model.close_file_les()
                 break
