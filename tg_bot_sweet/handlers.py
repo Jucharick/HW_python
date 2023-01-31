@@ -16,7 +16,7 @@ async def mes_start(message: types.Message):
                          f'\nЕсли хочешь сыграть в поединок -> введи команду /duel и укажи id оппонента через пробел. '
                          f'\nЧтобы изменить количество конфет в игре введи команду /set и укажи новое количесво конфет через пробел (по умолчанию количество = 221)'
                          f'\nЧтобы узнать правила игры введи команду /help')
-    print(message.from_user.id)
+    print(message.from_user.id) # приходит id того, кто отправил комманду /start
 
 @dp.message_handler(commands=['help'])
 async def mes_help(message: types.Message):
