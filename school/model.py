@@ -120,9 +120,14 @@ def add_mark(name: str, less: str, mark: str):
 
 def save_journal():
     global main_journal
-    for key, value in main_journal.items():
-        with open(path_journal, 'w', encoding='utf-8') as data: # преобразую в utf-8, иначе ошибка (кириллица)
-            data.writelines(' '.join(main_journal.get(key)))
+    main_journal = {"r":{"m":[2,3,4]},"t":{"m":[5]}}
+    # with open("school1/journal.txt", 'w', encoding='utf-8') as data: # преобразую в utf-8, иначе ошибка (кириллица)
+    # for keyOUT, valueOUT in main_journal.items():
+    #     student_string = ""
+    #     student_string += str(keyOUT)+" "
+    # for keyIN,valueIN in valueOUT.items():
+    #     student_string += str(keyIN)+" "+" ".join(map(str,valueIN))
+    #     data.writelines(student_string+"\n")
 
 def get_student(find_cont: str):
     global students_book
