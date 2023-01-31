@@ -20,7 +20,8 @@ async def mes_start(message: types.Message):
 
 @dp.message_handler(commands=['help'])
 async def mes_help(message: types.Message):
-    await message.answer(f'Бог поможет, бери конфеты (от 1 до 28)')
+    name = message.from_user.first_name
+    await message.answer(f'{name}, Бог тебе поможет, жми /new_game ')
 
 @dp.message_handler(commands=['new_game'])
 async def mes_new_game(message: types.Message):
@@ -46,18 +47,21 @@ async def mes_duel(message: types.Message):
     global current
     player = int(message.from_user.id)
     duel.append(player) # мой id (кто вызвал на поединок)
-    opponent = int(message.text.split()[1]) # добавляем split()[1] правую часть команды /duel id
-    duel.append(opponent) # id оппонента
-    total = max_count
-    first_turn = random.randint(0,1)
-    if first_turn:
-        await dp.bot.send_message(duel[0], f'Первый ход за тобой! Бери конфеты (от 1 до 28)')
-        await dp.bot.send_message(duel[1], f'Первый ход за твоим противником. Жди своего хода.')
-    else: 
-        await dp.bot.send_message(duel[1], f'Первый ход за тобой! Бери конфеты (от 1 до 28)')
-        await dp.bot.send_message(duel[0], f'Первый ход за твоим противником. Жди своего хода.')
-    current = duel[0] if first_turn ==1 else duel[1]
-    new_game = True
+    if len(message.text.split()) > 1:  # добавила обработку на ошибку "Если после /duel не ввели id оппонента"
+        opponent = int(message.text.split()[1]) # добавляем split()[1] правую часть команды /duel id
+        duel.append(opponent) # id оппонента
+        total = max_count
+        first_turn = random.randint(0,1)
+        if first_turn:
+            await dp.bot.send_message(duel[0], f'Первый ход за тобой! Бери конфеты (от 1 до 28)')
+            await dp.bot.send_message(duel[1], f'Первый ход за твоим противником. Жди своего хода.')
+        else: 
+            await dp.bot.send_message(duel[1], f'Первый ход за тобой! Бери конфеты (от 1 до 28)')
+            await dp.bot.send_message(duel[0], f'Первый ход за твоим противником. Жди своего хода.')
+        current = duel[0] if first_turn ==1 else duel[1]
+        new_game = True
+    else:
+        await message.answer(f'Некорректная команда. Введи команду /duel и укажи id оппонента через пробел. Не знаешь? Попробуй обыграть Бота, жми /new_game ')
 
 # /set 200 -> чтобы обратиться к 200 мы делаем split() и обращаемся к элементу с индексом [1]
 @dp.message_handler(commands=['set'])
