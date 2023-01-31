@@ -11,13 +11,12 @@ current = 0
 
 @dp.message_handler(commands=['start', 'старт'])
 async def mes_start(message: types.Message):
-    # print('Вам пришло сообщение')
-    # print(message)
     name = message.from_user.first_name
     await message.answer(f'{name}, привет! Сыграем в конфеты? Для начала игры введи команду /new_game . '
                          f'\nЕсли хочешь сыграть в поединок -> введи команду /duel и укажи id оппонента через пробел. '
                          f'\nЧтобы изменить количество конфет в игре введи команду /set и укажи новое количесво конфет через пробел (по умолчанию количество = 221)'
                          f'\nЧтобы узнать правила игры введи команду /help')
+    print(message.from_user.id)
 
 @dp.message_handler(commands=['help'])
 async def mes_help(message: types.Message):
