@@ -73,13 +73,33 @@ def mes_take_candy(message: types.Message):
             if total <= 0:
                 bot.send_message(message.chat.id, f'Ура, {name} победил !!!')
                 new_game = False
+                markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+                but1= telebot.types.KeyboardButton('рестарт')
+                but2= telebot.types.KeyboardButton('выход')
+                markup.add(but1)
+                markup.add(but2)
+                bot.send_message(message.chat.id, 'Можешь перезапустить игру', reply_markup=markup)
+                bot.register_next_step_handler(message,choose_op)
             else:
                 bot.send_message(message.chat.id, f'{name} взяла {count} конфет. '
                                                   f'На столе осталось {total} конфет. ')
                 bot_turn(message)
         else:
             bot.send_message(message.chat.id, f'{name}, надо указать ЧИСЛО от 1 до 28. Соблюдай правила и не тупи!')
-        
+            
+
+@bot.message_handler(content_types=['text'])
+def choose_op(message):
+    if message.text == 'рестарт':
+        global new_game
+        global max_count
+        global total
+        new_game = True
+        total = max_count
+        mes_new_game(message)
+    else:
+        exit()
+
 def bot_turn(message):
     global total
     global new_game
@@ -90,6 +110,13 @@ def bot_turn(message):
         bot.send_message(message.chat.id, f'Умный бот взял {bot_take} конфет. '
                                           f'На столе осталось {total} конфет и Умный бот победил')
         new_game = False
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
+        but1= telebot.types.KeyboardButton('рестарт')
+        but2= telebot.types.KeyboardButton('выход')
+        markup.add(but1)
+        markup.add(but2)
+        bot.send_message(message.chat.id, 'Можешь перезапустить игру', reply_markup=markup)
+        bot.register_next_step_handler(message,choose_op)
     elif total%(28+1) == 0:
         bot_take = 28
         total -= bot_take
@@ -110,22 +137,42 @@ bot.infinity_polling() # бот проверяет не пришли ли как
 # import telebot
 # import random
 
-# bot = telebot.TeleBot("6185618554:AAGS8T5BvicTGRTkGKp3HGAq0HPYLnln8UM")
+# bot = telebot.TeleBot("")
 
 # flag = None
-# sweets = 60
+# sweets = 20
 # max_sweet = 28
+
+# def restart():
+#     global sweets
+#     sweets = 60
 
 # @bot.message_handler(commands=["start"])
 # def start(message):
 #     global flag
 #     bot.send_message(message.chat.id, f"Приветствую вас в игре!")
-#     flag = random.choice(["user", "bot"])
+#     # flag = random.choice(["user", "bot"])
 #     bot.send_message(message.chat.id, f"Всего в игре {sweets} конфет")
-#     if flag == "user":
-#         bot.send_message(message.chat.id,f"Первым ходите вы")  # отправка сообщения (кому отправляем, что отправляем(str))
+#     mrk = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
+#     key1 = telebot.types.KeyboardButton("хожу я")
+#     key2= telebot.types.KeyboardButton("ходит бот")
+#     mrk.add(key1)
+#     mrk.add(key2)
+#     bot.send_message(message.chat.id,"выбери ниже", reply_markup=mrk)
+#     bot.register_next_step_handler(message,first_turn)
+#     # if flag == "user":
+#     #     bot.send_message(message.chat.id,f"Первым ходите вы")  # отправка сообщения (кому отправляем, что отправляем(str))
+#     # else:
+#     #     bot.send_message(message.chat.id,f"Первым ходит бот")# отправка сообщения (кому отправляем, что отправляем(str))
+#     # controller(message)
+
+# @bot.message_handler(content_types=["text"])
+# def first_turn(message):
+#     global flag
+#     if message.text == "хожу я":
+#         flag = "user"
 #     else:
-#         bot.send_message(message.chat.id,f"Первым ходит бот")# отправка сообщения (кому отправляем, что отправляем(str))
+#         flag = "bot"
 #     controller(message)
 
 # def controller(message):
@@ -139,17 +186,52 @@ bot.infinity_polling() # бот проверяет не пришли ли как
 #     else:
 #         flag = "user" if flag == "bot" else "bot"
 #         bot.send_message(message.chat.id, f"Победил {flag}!")
+#         mrk = telebot.types.ReplyKeyboardMarkup(resize_keyboard=True)
+#         key1 = telebot.types.KeyboardButton("рестар")
+#         key2 = telebot.types.KeyboardButton("выход")
+#         mrk.add(key1)
+#         mrk.add(key2)
+#         bot.send_message(message.chat.id,"если хочешь перезапусти", reply_markup=mrk)
+#         bot.register_next_step_handler(message,choose_op)
+
+# @bot.message_handler(content_types=["text"])
+# def choose_op(message):
+#     if message.text == "рестар":
+#         print("111")
+#         restart()
+#         start(message)
+#     else:
+#         exit()
+
 
 # def bot_input(message):
 #     global sweets, flag
+
 #     if sweets <= max_sweet:
 #         bot_turn = sweets
 #     elif sweets % max_sweet == 0:
-#         bot_turn = max_sweet - 1
+#         bot_turn = max_sweet + 1
 #     else:
 #         bot_turn = sweets % max_sweet - 1
+
+#     if bot_turn == 0:
+#         bot_turn = 1
 #     sweets -= bot_turn
 #     bot.send_message(message.chat.id, f"бот взял {bot_turn} конфет")
 #     bot.send_message(message.chat.id, f"осталось {sweets}")
 #     flag = "user" if flag == "bot" else "bot"
 #     controller(message)
+# def user_input(message):
+#     global sweets,flag
+#     user_turn = int(message.text)
+#     if user_turn == 0:
+#         bot.send_message(message.chat.id,"введен ноль, повторите")
+#         bot.register_next_step_handler(message,user_input)
+#     else:
+#         sweets -= user_turn
+#         bot.send_message(message.chat.id, f"осталось {sweets}")
+#         flag = "user" if flag == "bot" else "bot"
+#         controller(message)
+
+
+# bot.infinity_polling()
