@@ -74,7 +74,7 @@ async def mes_set(message: types.Message):
         if not new_game:
             if count.isdigit():
                 max_count = int(count)
-                await message.answer(f'Теперь конфет в игре будет {max_count}')
+                await message.answer(f'Теперь конфет в игре будет {max_count}, жми /new_game или /duel и укажи id оппонента через пробел')
             else:
                 await message.answer(f'{name}, напишите цифрами')
         else:
