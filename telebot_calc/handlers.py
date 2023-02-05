@@ -28,7 +28,7 @@ def mes_start(message: types.Message):
                                       f'\nДля ряциональных чисел жми /int')
 
 @bot.message_handler(commands=['complex'])
-def mes_new_game(message: types.Message):
+def cal_complex(message: types.Message):
     global flag
     global cal_list
     global orig_example
@@ -36,7 +36,7 @@ def mes_new_game(message: types.Message):
     bot.send_message(message.chat.id, f'Введите выражение с комплексными числами (используйте i)')
 
 @bot.message_handler(commands=['int'])
-def mes_new_game(message: types.Message):
+def calc_int(message: types.Message):
     global flag
     global cal_list
     global orig_example
@@ -65,8 +65,11 @@ def calculate_complex(operation_1, operation_2):
         else:
             i+=1
 
-# for фиксирует длину списка один раз и после del не проверяет длину списка снова (а она у нас уменьшается)
-# while при каждой итерации проверяет длину списка
+def save_log(message: types.Message):
+    path = 'telebot_calc/log.txt'
+    data = open(path, 'w', encoding='utf-8') # преобразую в utf-8, иначе ошибка (кириллица)
+    data.writelines(f'{message.from_user.first_name}   {message.text}')
+    data.close()
 
 @bot.message_handler()
 def calc (message: types.Message):
@@ -95,18 +98,26 @@ def calc (message: types.Message):
             cal_list.append(int(el))
         else:
             cal_list.append(el)
-    orig_example = cal_list.copy()
-
     if flag:
-        while len(cal_list) > 1:
-            calculate_complex('*', '/')
-            calculate_complex('+', '-')      
-    if not flag:
+        if '//' in cal_list or '%' in cal_list:
+            bot.send_message(message.chat.id,f'Ошибка. С комплексными числами нельзя проводить операции // or %. '
+                                            f'\nДля комплексных чисел жми /complex'
+                                            f'\nДля ряциональных чисел жми /int')
+            cal_list = []
+        else:
+            while len(cal_list) > 1:
+                calculate_complex('*', '/')
+                calculate_complex('+', '-')  
+            bot.send_message(message.chat.id,f'{cal_list[0]}')    
+    else:
+        # for фиксирует длину списка один раз и после del не проверяет длину списка снова (а она у нас уменьшается)
+        # while при каждой итерации проверяет длину списка
         while len(cal_list) > 1:
             calculate('//', '%')
             calculate('*', '/')
             calculate('+', '-')
-    bot.send_message(message.chat.id,f'{cal_list[0]}')
+        bot.send_message(message.chat.id,f'{cal_list[0]}')
+    save_log(message)
     cal_list = []
 
             
