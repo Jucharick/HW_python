@@ -67,9 +67,9 @@ def calculate_complex(operation_1, operation_2):
 
 def save_log(message: types.Message):
     path = 'telebot_calc/log.txt'
-    data = open(path, 'w', encoding='utf-8') # преобразую в utf-8, иначе ошибка (кириллица)
-    data.writelines(f'{message.from_user.first_name}   {message.text}')
-    data.close()
+    with open(path, "a") as file:
+        file.write(f'\n{message.from_user.first_name}   {message.text}')
+    file.close()
 
 @bot.message_handler()
 def calc (message: types.Message):
